@@ -1,0 +1,4 @@
+https://developer.mozilla.org/ru/docs/Web/API/Document_Object_Model/Events
+
+Прочтите о событиях. Будьте готовы ответить устно,
+а так же продемонстрировать письменно.
