@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="countdown"></div>
+    <script>
+        function startTimer() {
+            const display = document.querySelector('#countdown');
+            const HOUR_IN_MS = 60 * 60 * 1000;
+
+            // 1. Проверяем, есть ли уже сохраненное время окончания
+            let deadline = localStorage.getItem('timer_deadline');
+
+            if (!deadline) {
+                // Если зашли первый раз — устанавливаем дедлайн на час вперед
+                deadline = Date.now() + HOUR_IN_MS;
+                localStorage.setItem('timer_deadline', deadline);
+            }
+
+            function updateTimer() {
+                const now = Date.now();
+                const distance = deadline - now;
+
+                if (distance <= 0) {
+                    display.textContent = "00:00:00";
+                    clearInterval(timerInterval);
+                    // Опционально: localStorage.removeItem('timer_deadline'); 
+                    return;
+                }
+
+                // Расчет часов, минут и секунд
+                const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((distance / (1000 * 60)) % 60);
+                const seconds = Math.floor((distance / 1000) % 60);
+
+                // Форматирование 00:00:00
+                display.textContent =
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            // Запускаем обновление каждую секунду
+            const timerInterval = setInterval(updateTimer, 1000);
+            updateTimer(); // Инициализация сразу
+        }
+
+        startTimer();
+
+    </script>
+</body>
+
+</html>

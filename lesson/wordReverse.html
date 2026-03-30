@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Реверс слова по клику</title>
+</head>
+<body>
+    <div id="log">
+        <p>Создайте абзац, содержащий текст со словами (на html странице).
+        Сделайте так, чтобы по клику на любое слово из этого абзаца,
+        это слово меняло порядок своих букв на обратный.
+        </p>
+    </div>
+    <script>
+        let text = document.getElementById("log");
+        let arrayText=text.textContent.trim().split(' ');
+        function reversWord(id){
+            console.log("Сработало"+id);
+            let word=document.getElementById(id);
+            word.textContent=word.textContent.split('').reverse().join('');
+            return word;
+        }
+        let resulrText="";
+        let user_id = 0;
+        arrayText.forEach(element => {
+            user_id++;
+            resulrText+="<span id="+user_id+" onClick=reversWord("+user_id+")>"+element+"</span> "
+        });
+        text.innerHTML=resulrText;
+    </script>
+</body>
+</html>
