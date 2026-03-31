@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="todoInput" placeholder="Что нужно сделать?">
+    <button onclick="addTask()">Добавить</button>
+    <ul id="todoList"></ul>
+    <script>
+        const input = document.querySelector('#todoInput');
+        const list = document.querySelector('#todoList');
+
+        // 1. Загрузка данных при старте
+        const savedTasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+        render();
+
+        function addTask() {
+            if (!input.value) return;
+
+            const newTask = {
+                text: input.value,
+                timestamp: Date.now() // Тот самый Unix timestamp в мс
+            };
+
+            savedTasks.push(newTask);
+            localStorage.setItem('myTasks', JSON.stringify(savedTasks)); // Сохраняем массив как строку
+
+            input.value = '';
+            render();
+        }
+
+        function render() {
+            list.innerHTML = savedTasks.map(task => {
+                // Конвертируем timestamp обратно в читаемое время
+                const date = new Date(task.timestamp);
+                const timeStr = date.toLocaleTimeString();
+
+                return `<li>${task.text} <small>(${timeStr})</small></li>`;
+            }).join('');
+        }
+
+    </script>
+</body>
+
+</html>
