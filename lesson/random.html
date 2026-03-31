@@ -20,18 +20,24 @@
     </div>
     <p id="result">Результат...</p>
 <script>
+    let usedNum = [];
     function genRandom() {
+            let rand;
             let min = document.getElementById('min').value * 1;
-            // let min = Math.ceil(hmin);
-            console.log(typeof(min));
             let max = document.getElementById('max').value * 1;
-            console.log(typeof(max));
-            // let max = Math.floor(hmax);
-            // console.log(`${hmin} ; ${hmax}`);
-            console.log(`${min} ; ${max}`);
-            let rand = Math.floor(Math.random() * (max - min + 1)) + min;
-            console.log(rand);
-            document.getElementById('result').innerHTML = rand;
+            let maxUsedNum = max-min+1;
+            if(maxUsedNum == usedNum.length){
+                usedNum =[];
+                return document.getElementById('result').innerHTML = 'Все варианты перебраны';
+            }
+            do{
+                rand = Math.floor(Math.random() * (max - min + 1)) + min;
+                console.log(rand);
+            }
+            while(usedNum.includes(rand));
+            usedNum.push(rand);
+            document.getElementById('result').innerHTML += '<p>'+rand+'</p>';
+            console.log(usedNum);
         }
     let form = document.querySelector('form');
     form.addEventListener('submit', (event) => {
