@@ -36,8 +36,6 @@
 Условные выражения
 Циклы (Loops)
 Функции (в том числе и стрелочные)
-Объекты в JavaScript
-Классы в JavaScript (конструктор, наследование, приватность методов, super, this, static)
 session storage или local storage (различие, методы)
 работа с JSON
 асинхронность (Promises, async/await)
